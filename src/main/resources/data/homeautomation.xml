@@ -1,0 +1,449 @@
+<root>
+  <category name='Wohnzimmer'>
+    <output busAddress='80' id='ea0wpuqomx' displayName='Markise rein' concurrentOutputs='ea0wqz7y21' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='81' id='ea0wqz7y21' displayName='Markise raus' concurrentOutputs='ea0wpuqomx' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='82' id='ea0wrw91xd' displayName='JAL-1 auf' concurrentOutputs='ea0wt5vjk1' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='83' id='ea0wt5vjk1' displayName='JAL-1 ab' concurrentOutputs='ea0wrw91xd' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='84' id='ea0wue7rah' displayName='JAL-2 auf' concurrentOutputs='ea0wv9ng15' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='85' id='ea0wv9ng15' displayName='JAL-2 ab' concurrentOutputs='ea0wue7rah' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='14' id='ea0yg577hl' displayName='Licht zum Büro' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='15' id='ea0ylf4hgp' displayName='Licht Fenster' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='16' id='ea0ymfrey1' displayName='Licht Tisch' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='17' id='ea0ynrefop' displayName='Licht Ofen' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='18' id='ea0yoptag9' displayName='Steckdose Fernseh' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='19' id='ea0yrf2hnt' displayName='Steckdose Sofa' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='67' id='ea5zdxujcp' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <dimmer busAddress='1' id='ea6461nj8p' displayName='Ofenbeleuchtung' startDelay='1500' style='dimmer' dashboard='false' />
+    <temperature busAddress='8' id='ea5ze5i33t' displayName='Heizung' style='temperature' script='' sollvalue='230' oHysterese='10' uHysterese='10' forwardHandle='ea5zdxujcp' dashboard='true' active='true' concurrentTemperatures='' />
+    <input busAddress='48' id='ea0wq1lx3l' displayName='Markise rein' style='blind' script=''>
+      <param delay='0' forwardHandle='ea0wpuqomx' type='BRIDGE' duration='0' />
+    </input>
+    <input busAddress='49' id='ea0wr4nfv5' displayName='Markise raus' style='blind' script=''>
+      <param delay='0' forwardHandle='ea0wqz7y21' type='BRIDGE' duration='0' />
+    </input>
+    <input busAddress='50' id='ea0wsdcg8x' displayName='JAL-1 auf' style='blind' script=''>
+      <param delay='0' forwardHandle='ea0wrw91xd' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea0wrw91xd' type='ON' duration='65000' />
+    </input>
+    <input busAddress='51' id='ea0wtbo8o9' displayName='JAL-1 ab' style='blind' script=''>
+      <param delay='0' forwardHandle='ea0wt5vjk1' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea0wt5vjk1' type='ON' duration='65000' />
+    </input>
+    <input busAddress='52' id='ea0wusmynd' displayName='JAL-2 auf' style='blind' script=''>
+      <param delay='0' forwardHandle='ea0wue7rah' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea0wue7rah' type='ON' duration='65000' />
+    </input>
+    <input busAddress='53' id='ea0wvi7w75' displayName='JAL-2 ab' style='blind' script=''>
+      <param delay='0' forwardHandle='ea0wv9ng15' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea0wv9ng15' type='ON' duration='65000' />
+    </input>
+    <input busAddress='56' id='ea0ygpymw9' displayName='Licht zum Büro' style='light' script=''>
+      <param delay='0' forwardHandle='ea0yg577hl' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='57' id='ea0ylu87jd' displayName='Licht Fenster' style='light' script=''>
+      <param delay='0' forwardHandle='ea0ylf4hgp' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='58' id='ea0yn32end' displayName='Licht Tisch' style='light' script=''>
+      <param delay='0' forwardHandle='ea0ymfrey1' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='59' id='ea0yo5assx' displayName='Licht Ofen' style='light' script=''>
+      <param delay='0' forwardHandle='ea0ynrefop' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='61' id='ea0ypaqdk9' displayName='Steckdose Fernseh' style='socket' script=''>
+      <param delay='0' forwardHandle='ea0yoptag9' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='62' id='ea0ys1vb1l' displayName='Steckdose Sofa' style='socket' script=''>
+      <param delay='0' forwardHandle='ea0yrf2hnt' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='60' id='ea645a3c3t' displayName='Ofenbeleuchtung' style='light' script=''>
+      <param delay='0' forwardHandle='ea6461nj8p' type='DIMMER' duration='0' />
+    </input>
+    <time id='ebqm7nn58h' displayName='JAL auf' style='time' script='' timeStart='23:00:00' timeStop='23:01:30' forwardHandle='ea0wrw91xd;ea0wue7rah' dashboard='false' />
+    <shading id='sw1ea6476lzhl' displayName='Beschattung 1' timeStart='13:00:00' timeStop='19:30:00' forwardHandle='ea0wt5vjk1;ea0wrw91xd' sollvalue='270' durationactive='20' durationpostactive='0' durationreactive='45' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />  
+    <shading id='sw2ea6476lzhl' displayName='Beschattung 2' timeStart='13:00:00' timeStop='19:30:00' forwardHandle='ea0wv9ng15;ea0wue7rah' sollvalue='270' durationactive='20' durationpostactive='0' durationreactive='45' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />  
+  </category>
+  <category name='Flur'>
+    <output busAddress='2' id='e9ykgk4aa9' displayName='Licht EG' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='3' id='e9ykh8hbl5' displayName='Licht OG' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='94' id='ea35en82wp' displayName='Licht Kellergang' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='1' id='ea35glig9t' displayName='Licht Podest' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='62' id='ea5z6mgk9t' displayName='Heizung Keller' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <output busAddress='96' id='eavqpcio5l' displayName='Haustüre' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='4' id='ecliqr1cy1' displayName='Licht Treppe' concurrentOutputs='' dashboard='false' timeStart='16:30:00' timeStop='07:45:00' />
+    <temperature busAddress='2' id='ea5z6xdivl' displayName='Heizung Keller' style='temperature' script='' sollvalue='175' oHysterese='10' uHysterese='10' forwardHandle='ea5z6mgk9t' dashboard='true' active='true' concurrentTemperatures='ea5zgbn6pl' />
+    <input busAddress='37' id='e9yki9hgdl' displayName='Licht EG' style='light' script=''>
+      <param delay='0' forwardHandle='e9ykgk4aa9' type='ON' duration='180000' />
+    </input>
+    <input busAddress='38' id='e9ykhn3q7d' displayName='Licht OG' style='light' script=''>
+      <param delay='0' forwardHandle='e9ykh8hbl5' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='5' id='ea35fh7bj5' displayName='Bewegungsmelder Kellergang' style='light' script=''>
+      <param delay='0' forwardHandle='ea35en82wp' type='ON' duration='30000' />
+    </input>
+    <input busAddress='36' id='ea35haq141' displayName='Licht Podest' style='light' script=''>
+      <param delay='0' forwardHandle='ea35glig9t' type='ON' duration='180000' />
+    </input>
+    <input busAddress='1' id='eclioxh3t5' displayName='Bewegungsmelder OG' style='light' script=''>
+      <param delay='0' forwardHandle='ecliqr1cy1' type='ON' duration='240000' />
+    </input>
+    <input busAddress='4' id='ecliplgupt' displayName='Bewegungsmelder EG' style='light' script=''>
+      <param delay='0' forwardHandle='ecliqr1cy1' type='ON' duration='240000' />
+    </input>
+    <input busAddress='3' id='ecliq8goex' displayName='Bewegungsmelder KG' style='light' script=''>
+      <param delay='0' forwardHandle='ea35glig9t' type='ON' duration='180000' />
+    </input>
+    <scene id='eavqpqsrvd' displayName='Haustüre' style='scene' speechIdent='DOOR' dashboard='false'>
+      <param delay='0' forwardHandle='eavqpcio5l' type='ON' duration='500' />
+    </scene>
+  </category>
+  <category name='Kinderzimmer Ost'>
+    <output busAddress='32' id='ea32c0rxtl' displayName='Licht Decke' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='33' id='ea32d3habd' displayName='Licht Bett' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='34' id='ea32dwpwlt' displayName='Licht Schreibtisch' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='35' id='ea32enulvd' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='88' id='ea34r2y1b5' displayName='JAL auf' concurrentOutputs='ea34rnbx29' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='89' id='ea34rnbx29' displayName='JAL ab' concurrentOutputs='ea34r2y1b5' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='69' id='ea5zifsfw9' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='12' id='ea5zinj4ax' displayName='Heizung' style='temperature' script='' sollvalue='185' oHysterese='10' uHysterese='10' forwardHandle='ea5zifsfw9' dashboard='true' active='false' concurrentTemperatures='' />
+    <input busAddress='67' id='ea32ccvhlt' displayName='JAL auf' style='blind' script=''>
+      <param delay='0' forwardHandle='ea34r2y1b5' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea34r2y1b5' type='ON' duration='39000' />
+    </input>
+    <input busAddress='68' id='ea32dgzkhl' displayName='JAL ab' style='blind' script=''>
+      <param delay='0' forwardHandle='ea34rnbx29' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea34rnbx29' type='ON' duration='39000' />
+    </input>
+    <input busAddress='69' id='ea32e9sr81' displayName='Licht Decke' style='light' script=''>
+      <param delay='0' forwardHandle='ea32c0rxtl' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='70' id='ea32ew42z5' displayName='Licht Bett' style='light' script=''>
+      <param delay='0' forwardHandle='ea32d3habd' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='71' id='ea34p1c02p' displayName='Licht Schreibtisch' style='light' script=''>
+      <param delay='0' forwardHandle='ea32dwpwlt' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='72' id='ea34p7fcoh' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='ea32enulvd' type='TOGGLE' duration='0' />
+    </input>
+    <shading id='skoea6476lzhl' displayName='Beschattung' timeStart='08:00:00' timeStop='15:30:00' forwardHandle='ea34rnbx29;ea34r2y1b5' sollvalue='250' durationactive='40' durationpostactive='0' durationreactive='45' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />
+  </category>
+  <category name='Lüftungsanlage'>
+    <output busAddress='50' id='ea34lvwu8x' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <input busAddress='47' id='ea34mawa01' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea34lvwu8x' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Bad OG'>
+    <output busAddress='46' id='ea352fz68x' displayName='Licht Decke' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='47' id='ea353oemht' displayName='Licht Spiegel' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='48' id='ea354r678h' displayName='Licht Badewanne' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='49' id='ea3565x0o1' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='70' id='ea5zg3sxg1' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='10' id='ea5zgbn6pl' displayName='Heizung' style='temperature' script='' sollvalue='240' oHysterese='10' uHysterese='10' forwardHandle='ea5zg3sxg1' dashboard='true' active='true' concurrentTemperatures='' />
+    <input busAddress='43' id='ea352tzae9' displayName='Licht Decke' style='light' script=''>
+      <param delay='0' forwardHandle='ea352fz68x' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='44' id='ea3541zsu1' displayName='Licht Spiegel' style='light' script=''>
+      <param delay='0' forwardHandle='ea353oemht' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='45' id='ea355dmo69' displayName='Licht Badewanne' style='light' script=''>
+      <param delay='0' forwardHandle='ea354r678h' type='OFF' duration='0' />
+    </input>
+    <input busAddress='46' id='ea356krz5l' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='ea3565x0o1' type='OFF' duration='0' />
+    </input>
+  </category>
+  <category name='Ankleide'>
+    <output busAddress='92' id='ea358xy5vd' displayName='JAL auf' concurrentOutputs='ea35aayke1' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='93' id='ea35aayke1' displayName='JAL ab' concurrentOutputs='ea358xy5vd' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='40' id='ea35bj98kh' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='72' id='ea5zf979q1' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='9' id='ea5zfjj7dt' displayName='Heizung' style='temperature' script='' sollvalue='185' oHysterese='10' uHysterese='10' forwardHandle='ea5zf979q1' dashboard='true' active='false' concurrentTemperatures='' />
+    <input busAddress='40' id='ea359dybdt' displayName='JAL auf' style='blind' script=''>
+      <param delay='0' forwardHandle='ea358xy5vd' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea358xy5vd' type='ON' duration='39000' />
+    </input>
+    <input busAddress='41' id='ea35ao6esh' displayName='JAL ab' style='blind' script=''>
+      <param delay='0' forwardHandle='ea35aayke1' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea35aayke1' type='ON' duration='39000' />
+    </input>
+    <input busAddress='42' id='ea35bv1321' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea35bj98kh' type='TOGGLE' duration='0' />
+    </input>
+    <shading id='sakoea6476lzhl' displayName='Beschattung' timeStart='13:00:00' timeStop='20:00:00' forwardHandle='ea35aayke1;ea358xy5vd' sollvalue='270' durationactive='30' durationpostactive='0' durationreactive='0' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />
+  </category>
+  <category name='Speiß'>
+    <output busAddress='28' id='ea35lan9sx' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <input busAddress='39' id='ea35lpwhep' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea35lan9sx' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Küche'>
+    <output busAddress='30' id='e9yjdi9h35' displayName='Licht Gang' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='29' id='e9yjdvv0jl' displayName='Licht Kochen' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='31' id='e9yjeqbw75' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='74' id='e9yjf53m69' displayName='JAL-1 auf' concurrentOutputs='e9yjg1sdll' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='75' id='e9yjg1sdll' displayName='JAL-1 ab' concurrentOutputs='e9yjf53m69' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='76' id='e9yjgtrfgh' displayName='JAL-2 auf' concurrentOutputs='e9yjh5rpyh' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='77' id='e9yjh5rpyh' displayName='JAL-2 ab' concurrentOutputs='e9yjgtrfgh' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='78' id='e9yjhir5w1' displayName='JAL-3 auf' concurrentOutputs='e9yji1b5q9' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='79' id='e9yji1b5q9' displayName='JAL-3 ab' concurrentOutputs='e9yjhir5w1' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='68' id='ea5zaky6xt' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <dimmer busAddress='0' id='ea6476lzhl' displayName='Licht Tisch' startDelay='1500' style='dimmer' dashboard='false' />
+    <temperature busAddress='5' id='ea5zatpcm9' displayName='Heizung' style='temperature' script='' sollvalue='230' oHysterese='10' uHysterese='10' forwardHandle='ea5zaky6xt' dashboard='true' active='true' concurrentTemperatures='' />
+    <input busAddress='32' id='e9yjdphrgh' displayName='Licht Gang' style='light' script=''>
+      <param delay='0' forwardHandle='e9yjdi9h35' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='33' id='e9yje4wgld' displayName='Licht Kochen' style='light' script=''>
+      <param delay='0' forwardHandle='e9yjdvv0jl' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='34' id='e9yjeiuv0h' displayName='Licht Tisch' style='light' script=''>
+      <param delay='0' forwardHandle='ea6476lzhl' type='DIMMER' duration='0' />
+    </input>
+    <input busAddress='35' id='e9yjewu4ap' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='e9yjeqbw75' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='26' id='e9yjflzzep' displayName='JAL-1 auf' style='blind' script=''>
+      <param delay='0' forwardHandle='e9yjf53m69' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='e9yjf53m69' type='ON' duration='43000' />
+    </input>
+    <input busAddress='27' id='e9yjgazi4h' displayName='JAL-1 ab' style='blind' script=''>
+      <param delay='0' forwardHandle='e9yjg1sdll' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='e9yjg1sdll' type='ON' duration='43000' />
+    </input>
+    <input busAddress='28' id='e9yjgzdxkx' displayName='JAL-2 auf' style='blind' script=''>
+      <param delay='0' forwardHandle='e9yjgtrfgh' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='e9yjgtrfgh' type='ON' duration='43000' />
+    </input>
+    <input busAddress='29' id='e9yjhdkew9' displayName='JAL-2 ab' style='blind' script=''>
+      <param delay='0' forwardHandle='e9yjh5rpyh' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='e9yjh5rpyh' type='ON' duration='43000' />
+    </input>
+    <input busAddress='30' id='e9yjhta8ht' displayName='JAL-3 auf' style='blind' script=''>
+      <param delay='0' forwardHandle='e9yjhir5w1' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='e9yjhir5w1' type='ON' duration='43000' />
+    </input>
+    <input busAddress='31' id='e9yji9jsqp' displayName='JAL-3 ab' style='blind' script=''>
+      <param delay='0' forwardHandle='e9yji1b5q9' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='e9yji1b5q9' type='ON' duration='43000' />
+    </input>    
+    <shading id='sea6476lzhl' displayName='Beschattung' timeStart='08:00:00' timeStop='15:30:00' forwardHandle='e9yjh5rpyh;e9yjgtrfgh' sollvalue='300' durationactive='25' durationpostactive='0' durationreactive='45' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />
+  </category>
+  <category name='Aussen'>
+    <output busAddress='57' id='ea0yuw7muh' displayName='Licht Terrasse' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='58' id='ea0yx830dl' displayName='Licht Süd' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='59' id='ea0yydvze1' displayName='Licht West' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='60' id='ea0z0a7uy1' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <input busAddress='63' id='ea0ywmfch5' displayName='Licht Terasse' style='light' script=''>
+      <param delay='0' forwardHandle='ea0yuw7muh' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='64' id='ea0yxpj9nt' displayName='Licht Süd' style='light' script=''>
+      <param delay='0' forwardHandle='ea0yx830dl' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='65' id='ea0yzrvjc9' displayName='Licht West' style='light' script=''>
+      <param delay='0' forwardHandle='ea0yydvze1' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='66' id='ea0z0zsnv5' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='ea0z0a7uy1' type='TOGGLE' duration='0' />
+    </input>
+    <time id='ekpbke6vjl' displayName='Steckdose' style='time' script='' timeStart='17:00:00' timeStop='22:00:00' forwardHandle='ea0z0a7uy1' dashboard='false' />
+  </category>
+  <category name='Bad EG'>
+    <output busAddress='26' id='e9yhncrk0p' displayName='Licht Decke' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='27' id='e9yhnw4t3l' displayName='Licht Spiegel' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='64' id='ea5zgymwjt' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='11' id='ea5zhcco0h' displayName='Heizung' style='temperature' script='' sollvalue='230' oHysterese='10' uHysterese='10' forwardHandle='ea5zgymwjt' dashboard='true' active='true' concurrentTemperatures='' />
+    <input busAddress='24' id='e9yhnl4b6h' displayName='Licht Decke' style='light' script=''>
+      <param delay='0' forwardHandle='e9yhncrk0p' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='25' id='e9yhoi5sxt' displayName='Licht Spiegel' style='light' script=''>
+      <param delay='0' forwardHandle='e9yhnw4t3l' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Gästezimmer'>
+    <output busAddress='22' id='e9yfuep47t' displayName='Licht Decke' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='24' id='e9yg4i9m69' displayName='Licht Nachttisch links' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='23' id='e9yg5cle6p' displayName='Licht Nachttisch rechts' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='25' id='e9yg5smntl' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='65' id='ea5z5fhx9d' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='1' id='ea5z5r60pt' displayName='Heizung' style='temperature' script='' sollvalue='185' oHysterese='10' uHysterese='10' forwardHandle='ea5z5fhx9d' dashboard='true' active='false' concurrentTemperatures='' />
+    <input busAddress='20' id='e9yfugw19l' displayName='Licht Decke' style='light' script=''>
+      <param delay='0' forwardHandle='e9yfuep47t' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='21' id='e9yg4so921' displayName='Licht Nachttisch links' style='light' script=''>
+      <param delay='0' forwardHandle='e9yg4i9m69' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='22' id='e9yg5karix' displayName='Licht Nachttisch rechts' style='light' script=''>
+      <param delay='0' forwardHandle='e9yg5cle6p' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='23' id='e9yg63qi41' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='e9yg5smntl' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Büro'>
+    <output busAddress='86' id='jal-buero-aufe9yevk8h1d' displayName='JAL auf' concurrentOutputs='jal-buero-abe9yf0vs1s1' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='87' id='jal-buero-abe9yf0vs1s1' displayName='JAL ab' concurrentOutputs='jal-buero-aufe9yevk8h1d' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='20' id='buero-lichte9yf75yot5' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='21' id='buero-stde9yfal00tt' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='66' id='ea5zd01ya9' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='7' id='ea5zd7ary1' displayName='Heizung' style='temperature' script='' sollvalue='200' oHysterese='10' uHysterese='10' forwardHandle='ea5zd01ya9' dashboard='true' active='true' concurrentTemperatures='' />
+    <input busAddress='17' id='e9yewdcgnt' displayName='JAL auf' style='blind' script=''>
+      <param delay='0' forwardHandle='jal-buero-aufe9yevk8h1d' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='jal-buero-aufe9yevk8h1d' type='ON' duration='39000' />
+    </input>
+    <input busAddress='16' id='e9yf0jwx8h' displayName='JAL ab' style='blind' script=''>
+      <param delay='0' forwardHandle='jal-buero-abe9yf0vs1s1' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='jal-buero-abe9yf0vs1s1' type='ON' duration='39000' />
+    </input>
+    <input busAddress='18' id='e9yf9eft3t' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='buero-lichte9yf75yot5' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='19' id='e9yfbbh1gx' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='buero-stde9yfal00tt' type='TOGGLE' duration='0' />
+    </input>
+    <time id='ebqmbioqmh' displayName='JAL auf' style='time' script='' timeStart='23:00:00' timeStop='23:01:00' forwardHandle='jal-buero-aufe9yevk8h1d' dashboard='false' />
+    <shading id='sbea6476lzhl' displayName='Beschattung' timeStart='13:00:00' timeStop='19:30:00' forwardHandle='jal-buero-abe9yf0vs1s1;jal-buero-aufe9yevk8h1d' sollvalue='270' durationactive='20' durationpostactive='0' durationreactive='35' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />
+  </category>
+  <category name='Kinderzimmer West'>
+    <output busAddress='90' id='ea35v4vtmh' displayName='JAL auf' concurrentOutputs='ea35vqqk5l' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='91' id='ea35vqqk5l' displayName='JAL ab' concurrentOutputs='ea35v4vtmh' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='36' id='ea35w64z9d' displayName='Licht Decke' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='37' id='ea35wl56sh' displayName='Licht Bett' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='38' id='ea35wyj5vd' displayName='Licht Schreibtisch' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='39' id='ea35xd69y9' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='73' id='ea5zbpsbbl' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='6' id='ea5zc7zja9' displayName='Heizung' style='temperature' script='' sollvalue='185' oHysterese='10' uHysterese='10' forwardHandle='ea5zbpsbbl' dashboard='true' active='false' concurrentTemperatures='' />
+    <input busAddress='73' id='ea35tp259t' displayName='JAL auf' style='blind' script=''>
+      <param delay='0' forwardHandle='ea35v4vtmh' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea35v4vtmh' type='ON' duration='39000' />
+    </input>
+    <input busAddress='74' id='ea35tubfbd' displayName='JAL ab' style='blind' script=''>
+      <param delay='0' forwardHandle='ea35vqqk5l' type='ON' duration='100' />
+      <param delay='1500' forwardHandle='ea35vqqk5l' type='ON' duration='39000' />
+    </input>
+    <input busAddress='75' id='ea35tyyy6h' displayName='Licht Decke' style='light' script=''>
+      <param delay='0' forwardHandle='ea35w64z9d' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='76' id='ea35u75cy1' displayName='Licht Bett' style='light' script=''>
+      <param delay='0' forwardHandle='ea35wl56sh' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='77' id='ea35uc9nz5' displayName='Licht Schreibtisch' style='light' script=''>
+      <param delay='0' forwardHandle='ea35wyj5vd' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='78' id='ea35uqw9jd' displayName='Steckdose' style='light' script=''>
+      <param delay='0' forwardHandle='ea35xd69y9' type='TOGGLE' duration='0' />
+    </input>
+    <shading id='skea6476lzhl' displayName='Beschattung' timeStart='08:00:00' timeStop='15:30:00' forwardHandle='ea35vqqk5l;ea35v4vtmh' sollvalue='250' durationactive='40' durationpostactive='0' durationreactive='45' concurrentTemperatures='f74p99dzld' style='shading' dashboard='false' active='false' />
+  </category>
+  <category name='Schlafzimmer'>
+    <output busAddress='41' id='ea372695f5' displayName='Licht Decke' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='42' id='ea372bf66h' displayName='Licht Nachtisch links' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='43' id='ea372mnzhd' displayName='Licht Nachtisch rechts' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='44' id='ea372t8z49' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='45' id='ea37h16tnl' displayName='Licht Abseite' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='71' id='ea5z9eqrv5' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='4' id='ea5z9oza2h' displayName='Heizung' style='temperature' script='' sollvalue='170' oHysterese='10' uHysterese='10' forwardHandle='ea5z9eqrv5' dashboard='true' active='false' concurrentTemperatures='' />
+    <input busAddress='79' id='ea3718i3wp' displayName='Licht Decke' style='light' script=''>
+      <param delay='0' forwardHandle='ea372695f5' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='80' id='ea371hcbxd' displayName='Licht Nachtisch links' style='light' script=''>
+      <param delay='0' forwardHandle='ea372bf66h' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='81' id='ea371u5lmx' displayName='Licht Nachtisch rechts' style='light' script=''>
+      <param delay='0' forwardHandle='ea372mnzhd' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='82' id='ea3721f2g1' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='ea372t8z49' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='83' id='ea37gqsuox' displayName='Licht Abseite' style='light' script=''>
+      <param delay='0' forwardHandle='ea37h16tnl' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Eingang'>
+    <output busAddress='0' id='ea46j1wy5l' displayName='Licht Gardarobe' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='5' id='ea46jv52p5' displayName='Licht Aussen' concurrentOutputs='' dashboard='false' timeStart='17:00:00' timeStop='07:30:00' />
+    <output busAddress='6' id='ea46lpv609' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <input busAddress='0' id='ea46hv12oh' displayName='Bewegungsmelder Gardarobe' style='light' script=''>
+      <param delay='0' forwardHandle='ea46j1wy5l' type='ON' duration='180000' />
+    </input>
+    <input busAddress='96' id='ea46i1li95' displayName='Licht Aussen' style='light' script=''>
+      <param delay='0' forwardHandle='ea46jv52p5' type='ON' duration='180000' />
+    </input>
+    <input busAddress='97' id='ea46iavjpt' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='ea46lpv609' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='2' id='egeanqxqld' displayName='Bewegungsmelder Aussen' style='light' script=''>
+      <param delay='0' forwardHandle='ea46jv52p5' type='ON' duration='180000' />
+    </input>
+  </category>
+  <category name='Hobbyraum'>
+    <output busAddress='7' id='ea46mzwjwh' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='8' id='ea46nfy8yx' displayName='Steckdose' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='61' id='ea5z1t6rbd' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='0' id='ea5z26u5wh' displayName='Heizung' style='temperature' script='' sollvalue='175' oHysterese='10' uHysterese='10' forwardHandle='ea5z1t6rbd' dashboard='true' active='true' concurrentTemperatures='ea5zgbn6pl' />
+    <input busAddress='98' id='ea46mq74fd' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea46mzwjwh' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='99' id='ea46mve6zt' displayName='Steckdose' style='socket' script=''>
+      <param delay='0' forwardHandle='ea46nfy8yx' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Holzkeller'>
+    <output busAddress='11' id='ea46omgx4x' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <input busAddress='100' id='ea46ohhqip' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea46omgx4x' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Werkstatt'>
+    <output busAddress='9' id='ea46r5dqw9' displayName='Licht 1' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='10' id='ea46rhyf6x' displayName='Licht 2' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <input busAddress='101' id='ea46rsnd7t' displayName='Licht 1' style='light' script=''>
+      <param delay='0' forwardHandle='ea46r5dqw9' type='TOGGLE' duration='0' />
+    </input>
+    <input busAddress='102' id='ea46ry57wh' displayName='Licht 2' style='light' script=''>
+      <param delay='0' forwardHandle='ea46rhyf6x' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Waschküche'>
+    <output busAddress='13' id='ea46tv0atd' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='63' id='ea602nvmip' displayName='Heizung' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <temperature busAddress='3' id='ea602y2s41' displayName='Heizung' style='temperature' script='' sollvalue='175' oHysterese='10' uHysterese='10' forwardHandle='ea602nvmip' dashboard='true' active='true' concurrentTemperatures='ea5zgbn6pl' />
+    <input busAddress='103' id='ea46tqogh5' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea46tv0atd' type='TOGGLE' duration='0' />
+    </input>
+  </category>
+  <category name='Technik'>
+    <output busAddress='12' id='ea46ux8781' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='98' id='em20apwj4x' displayName='Heizkreispumpe' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='97' id='em20b1ebqp' displayName='Zirkulationspumpe' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='99' id='em3vezrw6h' displayName='Mischer WARM' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='100' id='em3vf9uf3t' displayName='Mischer KALT' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='52' id='ewzjn3ao7t' displayName='Lüftungsanlage' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <sensorTemperature busAddress='13' id='ec2w1xf81d' displayName='Wasser' style='sensor' script='' sollvalue='480' dashboard='true' active='true' concurrentTemperatures='' />
+    <sensorTemperature busAddress='14' id='ec2w4z86d5' displayName='Puffer' style='sensor' script='' sollvalue='300' dashboard='true' active='true' concurrentTemperatures='' />
+    <sensorTemperature busAddress='15' id='em3vg0xgyh' displayName='Vorlauftemp.' style='sensor' script='' sollvalue='370' dashboard='true' active='true' concurrentTemperatures='' />
+    <sensorTemperature busAddress='16' id='emc1d18iwp' displayName='Aussen Nord' style='sensor' script='' sollvalue='0' dashboard='true' active='true' concurrentTemperatures='' />
+    <sensorTemperature busAddress='17' id='f74p99dzld' displayName='Aussen Süd' style='sensor' script='' sollvalue='400' dashboard='true' active='true' concurrentTemperatures='' />
+    <input busAddress='104' id='ea46urmpd5' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea46ux8781' type='TOGGLE' duration='0' />
+    </input>
+    <time id='em20alpd09' displayName='Zirkulationspumpe' style='time' script='' timeStart='20:15:00' timeStop='20:20:00' forwardHandle='em20b1ebqp' dashboard='false' />
+    <heatingpump id='em20ejswq9' displayName='Heizkreispumpe' style='heating' timeStart='19:30:00' timeStop='07:00:00' forwardHandle='em20apwj4x;em3vezrw6h;em3vf9uf3t' dashboard='true' active='true' concurrentTemperatures='ec2w1xf81d;ec2w4z86d5;em3vg0xgyh' />
+    <ventilation id='ewt7juo62x' displayName='Lüftungsanlage' style='ventilation' timeStart='19:00:00' timeStop='06:30:00' forwardHandle='ewzjn3ao7t' sollvalue='0' dashboard='true' active='true' concurrentTemperatures='emc1d18iwp' />
+  </category>
+  <category name='Garage'>
+    <output busAddress='54' id='ea48edizp5' displayName='Licht' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='56' id='ea48ese4cx' displayName='Tor' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='53' id='ea48ez74kp' displayName='Brunnen' concurrentOutputs='' dashboard='true' timeStart='' timeStop='' />
+    <input busAddress='105' id='ea48dm245t' displayName='Licht' style='light' script=''>
+      <param delay='0' forwardHandle='ea48edizp5' type='ON' duration='240000' />
+    </input>
+    <input busAddress='106' id='ea48drmwk1' displayName='Tor' style='socket' script=''>
+      <param delay='0' forwardHandle='ea48ese4cx' type='ON' duration='1000' />
+    </input>
+    <input busAddress='107' id='ea48dvvtyh' displayName='Brunnen' style='socket' script=''>
+      <param delay='0' forwardHandle='ea48ez74kp' type='TOGGLE' duration='0' />
+    </input>
+    <time id='ehvmf54j2h' displayName='Brunnen PM' style='time' script='' timeStart='16:30:00' timeStop='18:00:00' forwardHandle='ea48ez74kp' dashboard='false' />
+  </category>
+</root>
