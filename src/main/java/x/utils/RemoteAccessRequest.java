@@ -45,6 +45,8 @@ public class RemoteAccessRequest {
           m.put("handle", handle);
           m.put("displayName", displayName);
           m.put("value", value);
+          m.put("stateful", p.stateful());
+          m.put("editable", p.editable());
           list.add(handle, m);
         }
       }
