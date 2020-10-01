@@ -29,26 +29,43 @@ public class XHomeautomationMain implements ApplicationRunner {
 
   Logger logger = LoggerFactory.getLogger(XHomeautomationMain.class);
 
-  public static final String VERSION = "2.2.1";
+  public static final String VERSION = "2.2.2";
 
   @Autowired
   RetainProcess retainProcess;
 
+  // Bus config
+  private Thread busThread = null;
   private XModbusMaster mbs = null;
-  private Thread modbusThread = null;
 
-  public void start(String modbusIP, boolean simulation, int cycleTimeMS) {
+  public void initBus(Properties prop, boolean simulation, int cycleTimeMS) {
+
     MessageHandler.getInstance();
-    mbs = new XModbusMaster(modbusIP, simulation, cycleTimeMS);
-    modbusThread = new Thread(new Runnable() {
-      @Override
-      public void run() {
-        logger.info("Starting ModbusMaster...");
-        mbs.start();
-      }
-    });
-    modbusThread.setPriority(Thread.MAX_PRIORITY);
-    modbusThread.start();
+
+    String bus = prop.getProperty("bus");
+    logger.info("Bus-Configuration: " + bus);
+    boolean busValid = false;
+
+    if (bus.equalsIgnoreCase("modbus")) {
+      String modbusIP = prop.getProperty("ip");
+      mbs = new XModbusMaster(modbusIP, simulation, cycleTimeMS);
+      busValid = true;
+    }
+
+    if (busValid) {
+      busThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+          logger.info("Starting Bus: " + bus);
+          if (bus.equalsIgnoreCase("modbus")) {
+            mbs.start();
+          }
+        }
+      });
+      busThread.setPriority(Thread.MAX_PRIORITY);
+      busThread.start();
+    }
+
   }
 
   public boolean getDevices(String filename) {
@@ -90,7 +107,6 @@ public class XHomeautomationMain implements ApplicationRunner {
           logger.info("Simulation activated");
           simulation = true;
         }
-        String ipString = prop.getProperty("ip");
         String cycleTimeString = prop.getProperty("cycleTime");
         int cycleTimeMS = Integer.parseInt(cycleTimeString);
         String remoteURLString = prop.getProperty("remoteURL");
@@ -109,7 +125,7 @@ public class XHomeautomationMain implements ApplicationRunner {
           rd.idleDevice();
           RemoteDevice r = new RemoteDevice(remoteAccess, remoteURLString, remoteTimeAccess, remoteJWTString);
           r.idleDevice();
-          start(ipString, simulation, cycleTimeMS);
+          initBus(prop, simulation, cycleTimeMS);
         } else {
           logger.error("Error reading Devicelist...");
         }
