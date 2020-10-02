@@ -24,7 +24,7 @@ public class RemoteDevice extends BaseDevice {
         boolean response = request.execute();
         if (response == false) {
           retryCounter++;
-          if (retryCounter >= 50) {
+          if (retryCounter >= 100) {
             activ = false;
             logger.info("Deaktivating RemoteAccess in response!");
           }
@@ -34,7 +34,7 @@ public class RemoteDevice extends BaseDevice {
         }
       } catch (Exception ex) {
         retryCounter++;
-        if (retryCounter >= 50) {
+        if (retryCounter >= 100) {
           activ = false;
           logger.info("Deaktivating RemoteAccess in Exception!");
           logger.error(ex.getMessage());

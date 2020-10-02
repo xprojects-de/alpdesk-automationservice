@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
+import x.Devices.AnalogInDevice;
 import x.Devices.DHT22Device;
 import x.Devices.HeatingPumpDevice;
 import x.Devices.SensorTemperatureDevice;
@@ -75,6 +76,8 @@ public class RemoteAccessRequest {
         tmpMap.put("type", Types.TYPE_HEATINGPUMP);
       } else if (deviceHandle instanceof VentilationDevice) {
         tmpMap.put("type", Types.TYPE_VENTILATION);
+      } else if (deviceHandle instanceof AnalogInDevice) {
+        tmpMap.put("type", Types.TYPE_ANALOGIN);
       }
       if (tmpMap.size() > 0) {
         tmpMap.put("categorie", ((BaseDevice) deviceHandle).categorie);

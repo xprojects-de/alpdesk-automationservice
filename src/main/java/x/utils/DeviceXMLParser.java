@@ -19,6 +19,7 @@ import x.DeviceUtils.InputParameter;
 import x.Devices.OutputDevice;
 import x.Devices.BaseDevice;
 import x.DeviceUtils.Types;
+import x.Devices.AnalogInDevice;
 import x.Devices.DHT22Device;
 import x.Devices.DimmerDevice;
 import x.Devices.HeatingPumpDevice;
@@ -40,7 +41,7 @@ public class DeviceXMLParser {
   private final ArrayList<Integer> outputsBus = new ArrayList<>();
   private final ArrayList<Integer> dimmerBus = new ArrayList<>();
   private final ArrayList<Integer> inputsBus = new ArrayList<>();
-  private final ArrayList<Integer> temperature_sensorTemperatureBus = new ArrayList<>();
+  private final ArrayList<Integer> analogInBus = new ArrayList<>();
   private final ArrayList<String> sceneId = new ArrayList<>();
   private final ArrayList<String> sceneSpeechIdent = new ArrayList<>();
   private final ArrayList<String> timeId = new ArrayList<>();
@@ -48,6 +49,7 @@ public class DeviceXMLParser {
   private final ArrayList<String> heatingPumpId = new ArrayList<>();
   private final ArrayList<String> ventilationId = new ArrayList<>();
   private final ArrayList<String> shadingId = new ArrayList<>();
+  private final ArrayList<String> analogInId = new ArrayList<>();
 
   private void checkForValidOutput(String output) throws Exception {
     String[] outputs = output.split(";");
@@ -281,10 +283,10 @@ public class DeviceXMLParser {
     } else {
       throw new Exception("Double ID/Invalid:" + d.id + " for TemperatureDevice");
     }
-    if (!temperature_sensorTemperatureBus.contains(d.busAddress)) {
-      temperature_sensorTemperatureBus.add(d.busAddress);
+    if (!analogInBus.contains(d.busAddress)) {
+      analogInBus.add(d.busAddress);
     } else {
-      throw new Exception("Double TemperatureBusAddress:" + d.busAddress);
+      throw new Exception("Double AnalogInBusAddress:" + d.busAddress);
     }
     checkForValidOutput(forwardHandle);
     d.deviceHandle = (d.busAddress + Types.TYPE_TEMPERATURE) * -1;
@@ -325,10 +327,10 @@ public class DeviceXMLParser {
     } else {
       throw new Exception("Double ID/Invalid:" + d.id + " for SensorTemperatureDevice");
     }
-    if (!temperature_sensorTemperatureBus.contains(d.busAddress)) {
-      temperature_sensorTemperatureBus.add(d.busAddress);
+    if (!analogInBus.contains(d.busAddress)) {
+      analogInBus.add(d.busAddress);
     } else {
-      throw new Exception("Double SensorTemperatureBusAddress:" + d.busAddress);
+      throw new Exception("Double AnalogInBusAddress:" + d.busAddress);
     }
     if (!"".equals(concurrentTemperatures)) {
       checkForValidTemperatures(concurrentTemperatures);
@@ -614,6 +616,36 @@ public class DeviceXMLParser {
     devices.add(d);
   }
 
+  void parseAnalogInDevice(List<BaseDevice> devices, Element e, String nodeType) throws Exception {
+    String categorieName = getCategoryName(e);
+    String id = checkAndGetAttribute(e, "id", true);
+    String busAddress = checkAndGetAttribute(e, "busAddress", true);
+    String displayName = checkAndGetAttribute(e, "displayName", true);
+    String style = checkAndGetAttribute(e, "style", false);
+    String math = checkAndGetAttribute(e, "math", false);
+    String label = checkAndGetAttribute(e, "label", true);
+    AnalogInDevice d = new AnalogInDevice(BaseDevice.DEFAULTCYCLETIME * 1200);
+    d.id = id;
+    d.busAddress = Integer.parseInt(busAddress);
+    if (!analogInId.contains(d.id) && !"".equals(d.id)) {
+      analogInId.add(d.id);
+    } else {
+      throw new Exception("Double ID/Invalid:" + d.id + " for ShadingDevice");
+    }
+    if (!analogInBus.contains(d.busAddress)) {
+      analogInBus.add(d.busAddress);
+    } else {
+      throw new Exception("Double AnalogInBusAddress:" + d.busAddress);
+    }
+    d.deviceHandle = (d.busAddress + Types.TYPE_ANALOGIN) * -1;
+    d.categorie = categorieName;
+    d.displayName = displayName;
+    d.style = (style.equals("") ? "analogin" : style);
+    d.setMath(math);
+    d.label = label;
+    devices.add(d);
+  }
+
   private void parseNode(List<BaseDevice> devices, Element e, String nodeType) throws Exception {
     String nodeName = e.getNodeName();
     NodeList nl = e.getChildNodes();
@@ -639,6 +671,8 @@ public class DeviceXMLParser {
       parseVentilationDevice(devices, e, nodeType);
     } else if (nodeName.equalsIgnoreCase(nodeType) && nodeName.equalsIgnoreCase("shading")) {
       parseShadingDevice(devices, e, nodeType);
+    } else if (nodeName.equalsIgnoreCase(nodeType) && nodeName.equalsIgnoreCase("analogin")) {
+      parseAnalogInDevice(devices, e, nodeType);
     }
     for (int i = 0; i < nl.getLength(); i++) {
       if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
@@ -668,6 +702,7 @@ public class DeviceXMLParser {
       parseNode(devices, document.getDocumentElement(), "heatingpump");
       parseNode(devices, document.getDocumentElement(), "ventilation");
       parseNode(devices, document.getDocumentElement(), "shading");
+      parseNode(devices, document.getDocumentElement(), "analogin");
 
     }
     return devices;
