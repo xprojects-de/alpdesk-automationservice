@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import x.DeviceUtils.DeviceListUtils;
 import x.DeviceUtils.RecorderItem;
 import x.DeviceUtils.Types;
+import x.Devices.AnalogInDevice;
 import x.Devices.InputDevice;
 import x.Devices.OutputDevice;
 import x.Devices.SceneDevice;
@@ -196,6 +197,25 @@ public class JsonBuilder {
           }
         }
         returnList.add(new SortableList(device.categorie, device.deviceHandle, device.style, Types.TYPE_SHADING, device.displayName, params, (device.dashboard == true ? dashboard : null), device.getRecorderItem()));
+      }
+
+      // AnalogIn
+      ArrayList<AnalogInDevice> analogin = DeviceListUtils.getInstance().getAnalogInDevicesByCategorie(mentry.getKey().toString());
+      for (AnalogInDevice device : analogin) {
+        ArrayList<PropertyInfo> params = new ArrayList<>();
+        ArrayList<DashboardInfo> dashboard = new ArrayList<>();
+        Field[] fields = device.getClass().getFields();
+        for (Field f : fields) {
+          PropertyInfo p = (PropertyInfo) f.getAnnotation(PropertyInfo.class);
+          if (p != null) {
+            params.add(p);
+          }
+          DashboardInfo d = (DashboardInfo) f.getAnnotation(DashboardInfo.class);
+          if (d != null) {
+            dashboard.add(d);
+          }
+        }
+        returnList.add(new SortableList(device.categorie, device.deviceHandle, device.style, Types.TYPE_ANALOGIN, device.displayName, params, (device.dashboard == true ? dashboard : null), device.getRecorderItem()));
       }
 
       // Output

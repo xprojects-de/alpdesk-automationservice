@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import x.DeviceUtils.DeviceListUtils;
 import x.DeviceUtils.TransferObject;
+import x.Devices.AnalogInDevice;
 import x.Devices.InputDevice;
 import x.Devices.OutputDevice;
 import x.Devices.TemperatureDevice;
@@ -211,6 +212,11 @@ public class XModbusMaster {
                 ((SensorTemperatureDevice) deviceHandle).sendMessage(iReg[address].getValue());
                 break;
               }
+            } else if (deviceHandle instanceof AnalogInDevice) {
+              if (((AnalogInDevice) deviceHandle).busAddress == address) {
+                ((AnalogInDevice) deviceHandle).sendMessage(iReg[address].getValue());
+                break;
+              }
             }
           }
         }
@@ -222,6 +228,8 @@ public class XModbusMaster {
           ((TemperatureDevice) deviceHandle).sendMessage(r.nextInt(300));
         } else if (deviceHandle instanceof SensorTemperatureDevice) {
           ((SensorTemperatureDevice) deviceHandle).sendMessage(200 + r.nextInt(500));
+        } else if (deviceHandle instanceof AnalogInDevice) {
+          ((AnalogInDevice) deviceHandle).sendMessage(200 + r.nextInt(500));
         }
       }
     }

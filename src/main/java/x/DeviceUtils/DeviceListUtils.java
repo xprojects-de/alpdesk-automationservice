@@ -2,6 +2,7 @@ package x.DeviceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import x.Devices.AnalogInDevice;
 import x.Devices.BaseDevice;
 import x.Devices.DHT22Device;
 import x.Devices.DimmerDevice;
@@ -125,6 +126,19 @@ public class DeviceListUtils {
     for (Object device : deviceList) {
       if (device instanceof ShadingDevice) {
         ShadingDevice temp = (ShadingDevice) device;
+        if (temp.categorie.equals(categorie)) {
+          list.add(temp);
+        }
+      }
+    }
+    return list;
+  }
+
+  public ArrayList<AnalogInDevice> getAnalogInDevicesByCategorie(String categorie) {
+    ArrayList<AnalogInDevice> list = new ArrayList<>();
+    for (Object device : deviceList) {
+      if (device instanceof AnalogInDevice) {
+        AnalogInDevice temp = (AnalogInDevice) device;
         if (temp.categorie.equals(categorie)) {
           list.add(temp);
         }
@@ -299,6 +313,10 @@ public class DeviceListUtils {
         } else if (device instanceof SensorTemperatureDevice) {
           if (((SensorTemperatureDevice) device).busAddress > maxAnalogInBusaddress) {
             maxAnalogInBusaddress = ((SensorTemperatureDevice) device).busAddress;
+          }
+        } else if (device instanceof AnalogInDevice) {
+          if (((AnalogInDevice) device).busAddress > maxAnalogInBusaddress) {
+            maxAnalogInBusaddress = ((AnalogInDevice) device).busAddress;
           }
         }
       }
