@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import x.Devices.AnalogInDevice;
 import x.Devices.DHT22Device;
 import x.Devices.HeatingPumpDevice;
+import x.Devices.SceneDevice;
 import x.Devices.SensorTemperatureDevice;
 import x.Devices.VentilationDevice;
 import x.MessageHandling.MessageHandler;
@@ -78,6 +79,8 @@ public class RemoteAccessRequest {
         tmpMap.put("type", Types.TYPE_VENTILATION);
       } else if (deviceHandle instanceof AnalogInDevice) {
         tmpMap.put("type", Types.TYPE_ANALOGIN);
+      } else if (deviceHandle instanceof SceneDevice) {
+        tmpMap.put("type", Types.TYPE_SCENE);
       }
       if (tmpMap.size() > 0) {
         tmpMap.put("categorie", ((BaseDevice) deviceHandle).categorie);
