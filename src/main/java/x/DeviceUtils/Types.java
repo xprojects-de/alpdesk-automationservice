@@ -13,6 +13,7 @@ public class Types {
   public static final int TYPE_HEATINGPUMP = 9000;
   public static final int TYPE_VENTILATION = 10000;
   public static final int TYPE_SHADING = 11000;
+  public static final int TYPE_ANALOGIN = 12000;
   public static final int TYPE_TOGGLE = 100;
   public static final int TYPE_ON = 101;
   public static final int TYPE_OFF = 102;
