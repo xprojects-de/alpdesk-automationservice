@@ -84,18 +84,22 @@ public class ModbusMasterMemograph extends BaseBus {
       while (true) {
         startTime = System.currentTimeMillis();
 
-        try {
-          writeModbusDigitalOutputs();
-        } catch (ModbusException ex) {
-          logger.error(ex.getMessage());
-          connectModbus(true);
+        if (cyclicCounter % 50 == 0) {
+          try {
+            writeModbusDigital();
+          } catch (ModbusException ex) {
+            logger.error(ex.getMessage());
+            connectModbus(true);
+          }
         }
 
-        try {
-          readModbusAnalogInputs();
-        } catch (ModbusException ex) {
-          logger.error(ex.getMessage());
-          connectModbus(true);
+        if (cyclicCounter % 50 == 0) {
+          try {
+            readModbusMultiRegister();
+          } catch (ModbusException ex) {
+            logger.error(ex.getMessage());
+            connectModbus(true);
+          }
         }
 
         if (cyclicCounter % 50 == 0) {
@@ -125,22 +129,45 @@ public class ModbusMasterMemograph extends BaseBus {
     }
   }
 
-  private void writeModbusDigitalOutputs() throws ModbusException {
+  private void writeModbusDigital() throws ModbusException {
     if (simulation == false) {
+      short outputs = 0x0000;
+      /**
+       * 00000000 => set Output 4 => 00001000
+       */
       for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
         if (deviceHandle instanceof OutputDevice) {
-          modbusMaster.writeSingleRegister(((OutputDevice) deviceHandle).busAddress, new SimpleRegister((((OutputDevice) deviceHandle).isValue() ? 1 : 0)));
+          int bAddress = ((OutputDevice) deviceHandle).busAddress;
+          if (bAddress < 20) {
+            if (((OutputDevice) deviceHandle).isValue()) {
+              outputs |= ((bAddress + 1) & 0xFF);
+            }
+          }
         }
       }
+      SimpleRegister[] r = new SimpleRegister[1];
+      r[0] = new SimpleRegister(outputs);
+      modbusMaster.writeMultipleRegisters(1240, r);
     }
   }
 
-  private void readModbusAnalogInputs() throws ModbusException {
+  private void writeModbusMultiRegister() throws ModbusException {
+    if (simulation == false) {
+      SimpleRegister[] r = new SimpleRegister[3];
+      r[0] = new SimpleRegister(1);
+      r[1] = new SimpleRegister(2);
+      r[2] = new SimpleRegister(3);
+      modbusMaster.writeMultipleRegisters(0, r);
+    }
+  }
+
+  private void readModbusMultiRegister() throws ModbusException {
     if (simulation == false) {
       for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
         if (deviceHandle instanceof AnalogInDevice) {
           InputRegister iReg[] = modbusMaster.readMultipleRegisters(((AnalogInDevice) deviceHandle).busAddress, 6);
-          ((AnalogInDevice) deviceHandle).sendMessage(iReg[0].getValue());
+          Float f = Float.intBitsToFloat((iReg[1].getValue() << 16) + iReg[2].getValue());
+          ((AnalogInDevice) deviceHandle).sendMessage(f);
         }
       }
     } else {

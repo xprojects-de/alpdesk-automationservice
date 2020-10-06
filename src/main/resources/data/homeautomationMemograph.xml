@@ -1,10 +1,13 @@
 <root>
-  <category name='Test'>
-    <analogin busAddress='100' id='ea0wpuqomx123' displayName='Analog In 1' math='+10;/100' label='Strom in A' style='analogin' />
-    <analogin busAddress='101' id='ea0wpuqomx124' displayName='Analog In 2' math='' label='Spannung in V' style='analogin' />
-    <scene id='eavqpqsrvd123' displayName='Motor an' style='scene' speechIdent='Motor an' dashboard='false'>
-      <param delay='0' forwardHandle='ea0wpuqomx12345' type='ON' duration='500' />
+  <category name='WBV-Thal'>
+    <analogin busAddress='200' id='ea0wpuqoma' displayName='UV-Anlage' math='' label='Wert in Prozent' style='analogin' />
+    <analogin busAddress='203' id='ea0wpuqomb' displayName='Füllstand Hochbehälter' math='' label='Wert in Prozent' style='analogin' />
+    <analogin busAddress='206' id='ea0wpuqomc' displayName='Druck am Filter' math='' label='Bar' style='analogin' />
+    <analogin busAddress='209' id='ea0wpuqomd' displayName='Durchfluss' math='' label='l/s' style='analogin' />
+    <analogin busAddress='212' id='ea0wpuqome' displayName='Temperatur' math='' label='Grad-Celsius' style='analogin' />
+    <scene id='ea0wpuqomf' displayName='Schieber' style='scene' speechIdent='Schieber' dashboard='false'>
+      <param delay='0' forwardHandle='ea0wpuqomg' type='TOGGLE' duration='0' />
     </scene>
-    <output busAddress='800' id='ea0wpuqomx12345' displayName='Motor' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+    <output busAddress='0' id='ea0wpuqomg' displayName='Schieber' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
   </category>
 </root>

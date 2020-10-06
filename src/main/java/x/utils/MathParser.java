@@ -2,7 +2,7 @@ package x.utils;
 
 public class MathParser {
 
-  public static float parse(int value, String exp) {
+  public static float parse(float value, String exp) {
 
     float nValue = value;
 
