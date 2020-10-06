@@ -1,6 +1,5 @@
-package x.modbus;
+package x.bus;
 
-import java.lang.reflect.Field;
 import java.util.Random;
 import net.wimpi.modbus.Modbus;
 import net.wimpi.modbus.ModbusException;
@@ -16,18 +15,12 @@ import x.Devices.AnalogInDevice;
 import x.Devices.InputDevice;
 import x.Devices.OutputDevice;
 import x.Devices.TemperatureDevice;
-import x.Devices.BaseDevice;
 import x.Devices.DimmerDevice;
 import x.Devices.SensorTemperatureDevice;
-import x.MessageHandling.MessageHandler;
-import x.utils.DashboardInfo;
-import x.utils.PropertyInfo;
-import x.utils.FieldParser;
-import x.websocket.model.AsyncStatusMessage;
 
-public class XModbusMaster {
+public class ModbusMasterHomeautomation extends BaseBus {
 
-  private final Logger logger = LoggerFactory.getLogger(XModbusMaster.class);
+  private final Logger logger = LoggerFactory.getLogger(ModbusMasterHomeautomation.class);
 
   private int cycleTime = 75;
   private long worstCycleTime = 75;
@@ -46,7 +39,7 @@ public class XModbusMaster {
   public static final int modbusAnalogOutputOffset = 0x200;
   private static final int modbusUnitID = 1;
 
-  public XModbusMaster(String modbusIP, boolean simulation, int cycleTimeMS) {
+  public ModbusMasterHomeautomation(String modbusIP, boolean simulation, int cycleTimeMS) {
     this.modbusHost = modbusIP;
     this.simulation = simulation;
     this.cycleTime = cycleTimeMS;
@@ -88,6 +81,7 @@ public class XModbusMaster {
     }
   }
 
+  @Override
   public void start() {
     connectModbus(false);
     if (modBusInit == true) {
@@ -124,7 +118,7 @@ public class XModbusMaster {
         }
 
         if (cyclicCounter % 50 == 0) {
-          updateDeviceHandleStatusForWebSocket();
+          updateDeviceHandleStatusForWebSocket(cycleTime, elapsedTime, worstCycleTime);
         }
 
         if (cyclicCounter >= 1000) {
@@ -155,7 +149,7 @@ public class XModbusMaster {
       int max = DeviceListUtils.getInstance().getMaxInputBusAddress();
       if (max >= 0) {
         int bitCount = max + 1;
-        bvInput = modbusMaster.readInputDiscretes(XModbusMaster.modbusDigitalInputOffset, bitCount);
+        bvInput = modbusMaster.readInputDiscretes(ModbusMasterHomeautomation.modbusDigitalInputOffset, bitCount);
         for (int address = 0; address < bitCount; address++) {
           for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
             if (deviceHandle instanceof InputDevice) {
@@ -177,13 +171,13 @@ public class XModbusMaster {
       int max = DeviceListUtils.getInstance().getMaxOutputBusAddress();
       if (max >= 0) {
         int bitCount = max + 1;
-        bvOutput = modbusMaster.readCoils(XModbusMaster.modbusDigitalOutputOffset, bitCount);
+        bvOutput = modbusMaster.readCoils(ModbusMasterHomeautomation.modbusDigitalOutputOffset, bitCount);
         for (int address = 0; address < bitCount; address++) {
           for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
             if (deviceHandle instanceof OutputDevice) {
               if (((OutputDevice) deviceHandle).busAddress == address) {
                 if (bvOutput.getBit(address) != ((OutputDevice) deviceHandle).isValue()) {
-                  modbusMaster.writeCoil(XModbusMaster.modbusUnitID, ((OutputDevice) deviceHandle).busAddress, ((OutputDevice) deviceHandle).isValue());
+                  modbusMaster.writeCoil(ModbusMasterHomeautomation.modbusUnitID, ((OutputDevice) deviceHandle).busAddress, ((OutputDevice) deviceHandle).isValue());
                 }
                 break;
               }
@@ -256,59 +250,5 @@ public class XModbusMaster {
         }
       }
     }
-  }
-
-  private void updateDeviceHandleStatusForWebSocket() {
-    AsyncStatusMessage globalASM = new AsyncStatusMessage();
-    globalASM.setKind(AsyncStatusMessage.MULTISET);
-    globalASM.setError(AsyncStatusMessage.NOERROR);
-    globalASM.getAsm().add(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "-10", cycleTime + "|" + elapsedTime + "|" + worstCycleTime));
-    //MessageHandler.getInstance().messageToWebSocketClients(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "-10", cycleTime + "|" + elapsedTime + "|" + worstCycleTime));
-    for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
-      if (deviceHandle instanceof OutputDevice) {
-        globalASM.getAsm().add(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "" + ((OutputDevice) deviceHandle).deviceHandle, (((OutputDevice) deviceHandle).isValue() == true ? "1" : "0")));
-        //MessageHandler.getInstance().messageToWebSocketClients(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "" + ((OutputDevice) deviceHandle).deviceHandle, (((OutputDevice) deviceHandle).isValue() == true ? "1" : "0")));
-      }
-      Field[] fields = deviceHandle.getClass().getFields();
-      for (Field f : fields) {
-
-        // PropertyInfos
-        PropertyInfo p = (PropertyInfo) f.getAnnotation(PropertyInfo.class);
-        if (p != null) {
-          try {
-            String value2Send = FieldParser.convertField(f, deviceHandle);
-            if (p.stateful()) {
-              if (FieldParser.convertFieldState(f, deviceHandle)) {
-                value2Send = value2Send + "|xactive";
-              }
-            }
-            //MessageHandler.getInstance().messageToWebSocketClients(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "p" + ((BaseDevice) deviceHandle).deviceHandle + "_" + p.handle(), value2Send));
-            globalASM.getAsm().add(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "p" + ((BaseDevice) deviceHandle).deviceHandle + "_" + p.handle(), value2Send));
-          } catch (Exception e) {
-            logger.error(e.getMessage());
-          }
-        }
-
-        // DashboardInfos
-        if (((BaseDevice) deviceHandle).dashboard == true) {
-          DashboardInfo d = (DashboardInfo) f.getAnnotation(DashboardInfo.class);
-          if (d != null) {
-            try {
-              String value2Send = FieldParser.convertField(f, deviceHandle);
-              if (d.stateful()) {
-                if (FieldParser.convertFieldState(f, deviceHandle)) {
-                  value2Send = value2Send + "|xactive";
-                }
-              }
-              //MessageHandler.getInstance().messageToWebSocketClients(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "d" + ((BaseDevice) deviceHandle).deviceHandle + "_" + d.handle(), value2Send));
-              globalASM.getAsm().add(new AsyncStatusMessage(AsyncStatusMessage.NOERROR, AsyncStatusMessage.SET, "d" + ((BaseDevice) deviceHandle).deviceHandle + "_" + d.handle(), value2Send));
-            } catch (Exception e) {
-              logger.error(e.getMessage());
-            }
-          }
-        }
-      }
-    }
-    MessageHandler.getInstance().messageToWebSocketClients(globalASM);
   }
 }
