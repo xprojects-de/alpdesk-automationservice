@@ -164,7 +164,7 @@ public class ModbusMasterMemograph extends BaseBus {
       Random r = new Random();
       for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
         if (deviceHandle instanceof AnalogInDevice) {
-          ((AnalogInDevice) deviceHandle).sendMessage(200 + r.nextInt(500));
+          ((AnalogInDevice) deviceHandle).sendMessage((float) (200 + r.nextInt(500)));
         }
       }
     }

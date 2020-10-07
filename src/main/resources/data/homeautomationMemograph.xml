@@ -5,9 +5,6 @@
     <analogin busAddress='206' id='ea0wpuqomc' displayName='Druck am Filter' math='' label='Bar' style='analogin' />
     <analogin busAddress='209' id='ea0wpuqomd' displayName='Durchfluss' math='' label='l/s' style='analogin' />
     <analogin busAddress='212' id='ea0wpuqome' displayName='Temperatur' math='' label='Grad-Celsius' style='analogin' />
-    <scene id='ea0wpuqomf' displayName='Schieber' style='scene' speechIdent='Schieber' dashboard='false'>
-      <param delay='0' forwardHandle='ea0wpuqomg' type='TOGGLE' duration='0' />
-    </scene>
     <output busAddress='0' id='ea0wpuqomg' displayName='Schieber' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
   </category>
 </root>
