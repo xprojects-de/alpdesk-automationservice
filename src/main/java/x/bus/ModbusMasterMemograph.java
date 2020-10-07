@@ -133,14 +133,14 @@ public class ModbusMasterMemograph extends BaseBus {
     if (simulation == false) {
       short outputs = 0x0000;
       /**
-       * 00000000 => set Output 4 => 00001000
+       * 0000000000000000 => set Output 1 and Output 4 => 0000000000001001
        */
       for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
         if (deviceHandle instanceof OutputDevice) {
           int bAddress = ((OutputDevice) deviceHandle).busAddress;
-          if (bAddress < 20) {
+          if (bAddress < 16) {
             if (((OutputDevice) deviceHandle).isValue()) {
-              outputs |= ((bAddress + 1) & 0xFF);
+              outputs |= ((1 << bAddress) & 0xFFFF);
             }
           }
         }
@@ -148,16 +148,6 @@ public class ModbusMasterMemograph extends BaseBus {
       SimpleRegister[] r = new SimpleRegister[1];
       r[0] = new SimpleRegister(outputs);
       modbusMaster.writeMultipleRegisters(1240, r);
-    }
-  }
-
-  private void writeModbusMultiRegister() throws ModbusException {
-    if (simulation == false) {
-      SimpleRegister[] r = new SimpleRegister[3];
-      r[0] = new SimpleRegister(1);
-      r[1] = new SimpleRegister(2);
-      r[2] = new SimpleRegister(3);
-      modbusMaster.writeMultipleRegisters(0, r);
     }
   }
 
@@ -179,5 +169,4 @@ public class ModbusMasterMemograph extends BaseBus {
       }
     }
   }
-
 }
