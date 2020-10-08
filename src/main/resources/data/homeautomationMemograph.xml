@@ -1,0 +1,10 @@
+<root>
+  <category name='WBV-Thal'>
+    <analogin busAddress='200' id='ea0wpuqoma' displayName='UV-Anlage' math='' label='Wert in Prozent' style='analogin' />
+    <analogin busAddress='203' id='ea0wpuqomb' displayName='Füllstand Hochbehälter' math='' label='Wert in Prozent' style='analogin' />
+    <analogin busAddress='206' id='ea0wpuqomc' displayName='Druck am Filter' math='' label='Bar' style='analogin' />
+    <analogin busAddress='209' id='ea0wpuqomd' displayName='Durchfluss' math='' label='l/s' style='analogin' />
+    <analogin busAddress='212' id='ea0wpuqome' displayName='Temperatur' math='' label='Grad-Celsius' style='analogin' />
+    <output busAddress='0' id='ea0wpuqomg' displayName='Schieber' concurrentOutputs='' dashboard='false' timeStart='' timeStop='' />
+  </category>
+</root>

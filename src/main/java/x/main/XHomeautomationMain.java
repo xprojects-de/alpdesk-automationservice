@@ -15,10 +15,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import x.DeviceUtils.DeviceListUtils;
 import x.MessageHandling.MessageHandler;
-import x.modbus.XModbusMaster;
+import x.bus.ModbusMasterHomeautomation;
 import x.Devices.BaseDevice;
 import x.Devices.RemoteDevice;
 import x.Devices.RetainDevice;
+import x.bus.BaseBus;
+import x.bus.ModbusMasterMemograph;
 import x.retain.RetainProcess;
 import x.utils.DeviceXMLParser;
 
@@ -36,7 +38,7 @@ public class XHomeautomationMain implements ApplicationRunner {
 
   // Bus config
   private Thread busThread = null;
-  private XModbusMaster mbs = null;
+  private BaseBus bb = null;
 
   public void initBus(Properties prop, boolean simulation, int cycleTimeMS) {
 
@@ -48,18 +50,20 @@ public class XHomeautomationMain implements ApplicationRunner {
 
     if (bus.equalsIgnoreCase("modbus")) {
       String modbusIP = prop.getProperty("ip");
-      mbs = new XModbusMaster(modbusIP, simulation, cycleTimeMS);
+      bb = new ModbusMasterHomeautomation(modbusIP, simulation, cycleTimeMS);
+      busValid = true;
+    } else if (bus.equalsIgnoreCase("modbus_memograph")) {
+      String modbusIP = prop.getProperty("ip");
+      bb = new ModbusMasterMemograph(modbusIP, simulation, cycleTimeMS);
       busValid = true;
     }
 
-    if (busValid) {
+    if (busValid && bb != null) {
       busThread = new Thread(new Runnable() {
         @Override
         public void run() {
           logger.info("Starting Bus: " + bus);
-          if (bus.equalsIgnoreCase("modbus")) {
-            mbs.start();
-          }
+          bb.start();
         }
       });
       busThread.setPriority(Thread.MAX_PRIORITY);
