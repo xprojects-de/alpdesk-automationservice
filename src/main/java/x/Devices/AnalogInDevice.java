@@ -18,7 +18,8 @@ public class AnalogInDevice extends BaseDevice {
   @PropertyInfo(handle = 1, displayName = "Value", type = Types.TYPE_PROPERTIEINFO_INFO)
   public float valueVisu = 0;
 
-  private int value = 0;
+  private float value = 0;
+
   private String math = "";
 
   public AnalogInDevice(int cycleTime) {
@@ -31,7 +32,7 @@ public class AnalogInDevice extends BaseDevice {
 
   @Override
   public void receiveMessage(Object message) {
-    value = (int) ((short) ((int) message)); // Zweierkomplement => 65535 -> -1
+    value = (float) message;
     valueVisu = MathParser.parse(value, math);
     logger.debug("ANALOG_IN <" + id + "> => <" + value + "> <" + valueVisu + "> <" + label + ">");
     super.receiveMessage(message);
