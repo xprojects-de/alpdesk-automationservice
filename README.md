@@ -35,7 +35,8 @@ Maybe to upload you have to set "sudo chmod -R 0777 /var/www/html" (not recommen
 8)
 create a dir /home/pi/alpdesk
 create file startAlpdeskAutomationservice.sh and add following content:
------
+
+```
 
 #!/bin/sh
 cd /home/pi/alpdesk
@@ -44,7 +45,7 @@ cd /home/pi/alpdesk
 # sudo mount | grep sda1
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5001 -jar Alpdesk-Automationservice-Deploy.jar /home/pi/alpdesk/alpdesk.properties --spring.profiles.active=prod --spring.datasource.url=jdbc:h2:file:/home/pi/alpdesk/alpdeskdb_prod
 
------
+```
 
 9)
 Make startAlpdeskAutomationservice.sh executeable by "sudo chmod 0777 startAlpdeskAutomationservice.sh"
@@ -59,7 +60,7 @@ Modify you alpdesk.xml and alpdesk.properties as you want
 11)
 create a file named "autostart-alpdeskservice" under /etc/init.d/ with following content:
 
------
+```
 
 #! /bin/sh
 ### BEGIN INIT INFO
@@ -88,7 +89,7 @@ esac
  
 exit 0
 
------
+```
 
 make autostart-alpdeskservice executable by "sudo chmod 0777 /etc/init.d/autostart-alpdeskservice"
 
