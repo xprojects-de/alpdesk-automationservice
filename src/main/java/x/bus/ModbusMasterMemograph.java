@@ -2,7 +2,6 @@ package x.bus;
 
 import java.util.Random;
 import net.wimpi.modbus.Modbus;
-import net.wimpi.modbus.ModbusException;
 import net.wimpi.modbus.facade.ModbusTCPMaster;
 import net.wimpi.modbus.procimg.InputRegister;
 import net.wimpi.modbus.procimg.SimpleRegister;
@@ -57,7 +56,7 @@ public class ModbusMasterMemograph extends BaseBus {
     if (reconnect && simulation == false) {
       modbusMaster.disconnect();
       try {
-        Thread.sleep(5000);
+        Thread.sleep(10000);
       } catch (InterruptedException ex) {
         logger.error(ex.getMessage());
       }
@@ -87,7 +86,7 @@ public class ModbusMasterMemograph extends BaseBus {
         if (cyclicCounter % 50 == 0) {
           try {
             writeModbusDigital();
-          } catch (ModbusException ex) {
+          } catch (Exception ex) {
             logger.error(ex.getMessage());
             connectModbus(true);
           }
@@ -96,7 +95,7 @@ public class ModbusMasterMemograph extends BaseBus {
         if (cyclicCounter % 50 == 0) {
           try {
             readModbusMultiRegister();
-          } catch (ModbusException ex) {
+          } catch (Exception ex) {
             logger.error(ex.getMessage());
             connectModbus(true);
           }
@@ -129,7 +128,7 @@ public class ModbusMasterMemograph extends BaseBus {
     }
   }
 
-  private void writeModbusDigital() throws ModbusException {
+  private void writeModbusDigital() throws Exception {
     if (simulation == false) {
       short outputs = 0x0000;
       /**
@@ -151,7 +150,7 @@ public class ModbusMasterMemograph extends BaseBus {
     }
   }
 
-  private void readModbusMultiRegister() throws ModbusException {
+  private void readModbusMultiRegister() throws Exception {
     if (simulation == false) {
       for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
         if (deviceHandle instanceof AnalogInDevice) {

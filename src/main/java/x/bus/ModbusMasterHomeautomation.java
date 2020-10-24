@@ -2,7 +2,6 @@ package x.bus;
 
 import java.util.Random;
 import net.wimpi.modbus.Modbus;
-import net.wimpi.modbus.ModbusException;
 import net.wimpi.modbus.facade.ModbusTCPMaster;
 import net.wimpi.modbus.procimg.InputRegister;
 import net.wimpi.modbus.procimg.SimpleRegister;
@@ -61,7 +60,7 @@ public class ModbusMasterHomeautomation extends BaseBus {
     if (reconnect && simulation == false) {
       modbusMaster.disconnect();
       try {
-        Thread.sleep(5000);
+        Thread.sleep(10000);
       } catch (InterruptedException ex) {
         logger.error(ex.getMessage());
       }
@@ -89,21 +88,21 @@ public class ModbusMasterHomeautomation extends BaseBus {
         startTime = System.currentTimeMillis();
         try {
           readModbusDigitalInputs();
-        } catch (ModbusException ex) {
+        } catch (Exception ex) {
           logger.error(ex.getMessage());
           connectModbus(true);
         }
 
         try {
           writeModbusDigitalOutputs();
-        } catch (ModbusException ex) {
+        } catch (Exception ex) {
           logger.error(ex.getMessage());
           connectModbus(true);
         }
 
         try {
           writeModbusDimmerAnalogOutputs();
-        } catch (ModbusException ex) {
+        } catch (Exception ex) {
           logger.error(ex.getMessage());
           connectModbus(true);
         }
@@ -111,7 +110,7 @@ public class ModbusMasterHomeautomation extends BaseBus {
         if (cyclicCounter % 150 == 0) {
           try {
             readModbusAnalogInputs();
-          } catch (ModbusException ex) {
+          } catch (Exception ex) {
             logger.error(ex.getMessage());
             connectModbus(true);
           }
@@ -144,7 +143,7 @@ public class ModbusMasterHomeautomation extends BaseBus {
     }
   }
 
-  private void readModbusDigitalInputs() throws ModbusException {
+  private void readModbusDigitalInputs() throws Exception {
     if (simulation == false) {
       int max = DeviceListUtils.getInstance().getMaxInputBusAddress();
       if (max >= 0) {
@@ -166,7 +165,7 @@ public class ModbusMasterHomeautomation extends BaseBus {
     }
   }
 
-  private void writeModbusDigitalOutputs() throws ModbusException {
+  private void writeModbusDigitalOutputs() throws Exception {
     if (simulation == false) {
       int max = DeviceListUtils.getInstance().getMaxOutputBusAddress();
       if (max >= 0) {
@@ -188,7 +187,7 @@ public class ModbusMasterHomeautomation extends BaseBus {
     }
   }
 
-  private void readModbusAnalogInputs() throws ModbusException {
+  private void readModbusAnalogInputs() throws Exception {
     if (simulation == false) {
       int max = DeviceListUtils.getInstance().getMaxAnalogInBusAddress();
       if (max >= 0) {
@@ -229,7 +228,7 @@ public class ModbusMasterHomeautomation extends BaseBus {
     }
   }
 
-  private void writeModbusDimmerAnalogOutputs() throws ModbusException {
+  private void writeModbusDimmerAnalogOutputs() throws Exception {
     for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
       if (deviceHandle instanceof DimmerDevice) {
         if (((DimmerDevice) deviceHandle).isStateChanged()) {
