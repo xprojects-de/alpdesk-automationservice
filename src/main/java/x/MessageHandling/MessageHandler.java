@@ -9,8 +9,12 @@ import x.Devices.BaseDevice;
 import x.utils.PropertyInfo;
 import x.websocket.model.AsyncStatusMessage;
 import x.websocket.model.ConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageHandler {
+
+  private final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
   private static MessageHandler singleton = null;
   private ConnectionManager cm = null;
@@ -33,15 +37,19 @@ public class MessageHandler {
 
   synchronized public void messageToWebSocketClients(AsyncStatusMessage messageToSend) {
     if (this.cm != null) {
-      synchronized (this.cm.getConnections()) {
-        this.cm.cleanConnections();
-        if (this.cm.getConnections().size() > 0) {
-          for (ConnectionManager.Status u : this.cm.getConnections()) {
-            if (u.isInitDone()) {
-              this.cm.sendMessage(u.getUuid(), messageToSend);
+      try {
+        synchronized (this.cm.getConnections()) {
+          this.cm.cleanConnections();
+          if (this.cm.getConnections().size() > 0) {
+            for (ConnectionManager.Status u : this.cm.getConnections()) {
+              if (u.isInitDone()) {
+                this.cm.sendMessage(u.getUuid(), messageToSend);
+              }
             }
           }
         }
+      } catch (Exception ex) {
+        logger.error(ex.getMessage());
       }
     }
   }
