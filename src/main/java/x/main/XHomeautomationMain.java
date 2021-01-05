@@ -31,7 +31,7 @@ public class XHomeautomationMain implements ApplicationRunner {
 
   Logger logger = LoggerFactory.getLogger(XHomeautomationMain.class);
 
-  public static final String VERSION = "2.2.5";
+  public static final String VERSION = "2.2.6";
 
   @Autowired
   RetainProcess retainProcess;
