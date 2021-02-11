@@ -58,11 +58,36 @@ public class RemoteAccessRequest {
     }
   }
 
+  private void addSystemInfo(AutomationRequestParams atRequestParams) {
+
+    HashMap<Object, Object> busInfoMap = new HashMap<>();
+    busInfoMap.put("type", Types.TYPE_SYSTEMINFO);
+    busInfoMap.put("categorie", "System");
+    busInfoMap.put("name", "Systeminfo");
+
+    ArrayList<Object> list = new ArrayList<>();
+    HashMap<Object, Object> m = new HashMap<>();
+    m.put("handle", 0);
+    m.put("displayName", "Last Busupdate");
+    m.put("value", DeviceListUtils.getInstance().getLastBusUpdate());
+    m.put("stateful", false);
+    m.put("editable", false);
+    list.add(0, m);
+    busInfoMap.put("properties", list);
+
+    atRequestParams.getParams().put((Types.TYPE_SYSTEMINFO * -1), busInfoMap);
+  }
+
   private AutomationRequest generateCommitMessage() {
+
     AutomationRequest atRequest = new AutomationRequest();
     atRequest.setPlugin("automation");
+
     AutomationRequestParams atRequestParams = new AutomationRequestParams();
     atRequestParams.setMethod("commit");
+
+    addSystemInfo(atRequestParams);
+
     for (Object deviceHandle : DeviceListUtils.getInstance().getDeviceList()) {
       HashMap<Object, Object> tmpMap = new HashMap<>();
       if (deviceHandle instanceof OutputDevice) {
