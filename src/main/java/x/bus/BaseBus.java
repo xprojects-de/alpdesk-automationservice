@@ -13,6 +13,7 @@ import x.utils.FieldParser;
 import x.utils.PropertyInfo;
 import x.websocket.model.AsyncStatusMessage;
 import java.util.Calendar;
+import x.utils.SystemInfo;
 
 public class BaseBus {
 
@@ -78,9 +79,9 @@ public class BaseBus {
     MessageHandler.getInstance().messageToWebSocketClients(globalASM);
 
     try {
-      DeviceListUtils.getInstance().setLastBusUpdate(dateFormat.format(Calendar.getInstance().getTime()));
+      SystemInfo.getInstance().setLastBusUpdate(dateFormat.format(Calendar.getInstance().getTime()));
     } catch (Exception e) {
-      DeviceListUtils.getInstance().setLastBusUpdate("-");
+      SystemInfo.getInstance().setLastBusUpdate("-");
     }
 
   }

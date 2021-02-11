@@ -27,6 +27,7 @@ public class ModbusMasterMemograph extends BaseBus {
   long elapsedTime = 0;
   int cyclicCounter = 0;
   boolean modBusInit = false;
+  boolean sendUpdateInfo = true;
   private String modbusHost = "192.168.1.1";
   private final int modbusPort = Modbus.DEFAULT_PORT;
   ModbusTCPMaster modbusMaster = null;
@@ -78,9 +79,14 @@ public class ModbusMasterMemograph extends BaseBus {
 
   @Override
   public void start() {
+
     connectModbus(false);
+
     if (modBusInit == true) {
       while (true) {
+
+        sendUpdateInfo = true;
+
         startTime = System.currentTimeMillis();
 
         if (cyclicCounter % 50 == 0) {
@@ -89,6 +95,7 @@ public class ModbusMasterMemograph extends BaseBus {
           } catch (Exception ex) {
             logger.error(ex.getMessage());
             connectModbus(true);
+            sendUpdateInfo = false;
           }
         }
 
@@ -98,17 +105,19 @@ public class ModbusMasterMemograph extends BaseBus {
           } catch (Exception ex) {
             logger.error(ex.getMessage());
             connectModbus(true);
+            sendUpdateInfo = false;
           }
         }
 
-        if (cyclicCounter % 50 == 0) {
+        if (cyclicCounter % 50 == 0 && sendUpdateInfo) {
           updateDeviceHandleStatusForWebSocket(cycleTime, elapsedTime, worstCycleTime);
         }
 
-        if (cyclicCounter >= 1000) {
+        if (cyclicCounter >= 1000 && sendUpdateInfo) {
           cyclicCounter = 0;
           logger.debug("INFO <" + cycleTime + "ms><" + elapsedTime + "ms><" + worstCycleTime + "ms>");
         }
+        
         elapsedTime = System.currentTimeMillis() - startTime;
         if (elapsedTime < cycleTime) {
           try {
@@ -121,6 +130,7 @@ public class ModbusMasterMemograph extends BaseBus {
             worstCycleTime = elapsedTime;
           }
         }
+        
         cyclicCounter++;
       }
     } else {

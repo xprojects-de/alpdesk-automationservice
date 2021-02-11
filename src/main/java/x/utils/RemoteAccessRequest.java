@@ -66,13 +66,23 @@ public class RemoteAccessRequest {
     busInfoMap.put("name", "Systeminfo");
 
     ArrayList<Object> list = new ArrayList<>();
-    HashMap<Object, Object> m = new HashMap<>();
-    m.put("handle", 0);
-    m.put("displayName", "Last Busupdate");
-    m.put("value", DeviceListUtils.getInstance().getLastBusUpdate());
-    m.put("stateful", false);
-    m.put("editable", false);
-    list.add(0, m);
+
+    HashMap<Object, Object> version = new HashMap<>();
+    version.put("handle", 0);
+    version.put("displayName", "Systemversion");
+    version.put("value", SystemInfo.getInstance().getVersion());
+    version.put("stateful", false);
+    version.put("editable", false);
+    list.add(version);
+
+    HashMap<Object, Object> bus = new HashMap<>();
+    bus.put("handle", 1);
+    bus.put("displayName", "Last Busupdate");
+    bus.put("value", SystemInfo.getInstance().getLastBusUpdate());
+    bus.put("stateful", false);
+    bus.put("editable", false);
+    list.add(bus);
+
     busInfoMap.put("properties", list);
 
     atRequestParams.getParams().put((Types.TYPE_SYSTEMINFO * -1), busInfoMap);
