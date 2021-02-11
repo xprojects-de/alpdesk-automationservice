@@ -2,6 +2,8 @@ package x.DeviceUtils;
 
 public class Types {
 
+  public static final int TYPE_BUSINFO = 100000;
+
   public static final int TYPE_INPUT = 1000;
   public static final int TYPE_OUTPUT = 2000;
   public static final int TYPE_TEMPERATURE = 3000;

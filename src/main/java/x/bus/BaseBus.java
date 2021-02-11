@@ -1,6 +1,7 @@
 package x.bus;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import x.DeviceUtils.DeviceListUtils;
@@ -11,10 +12,12 @@ import x.utils.DashboardInfo;
 import x.utils.FieldParser;
 import x.utils.PropertyInfo;
 import x.websocket.model.AsyncStatusMessage;
+import java.util.Calendar;
 
 public class BaseBus {
 
   private final Logger logger = LoggerFactory.getLogger(BaseBus.class);
+  private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
   public void start() {
 
@@ -71,6 +74,14 @@ public class BaseBus {
         }
       }
     }
+
     MessageHandler.getInstance().messageToWebSocketClients(globalASM);
+
+    try {
+      DeviceListUtils.getInstance().setLastBusUpdate(dateFormat.format(Calendar.getInstance().getTime()));
+    } catch (Exception e) {
+      DeviceListUtils.getInstance().setLastBusUpdate("-");
+    }
+
   }
 }

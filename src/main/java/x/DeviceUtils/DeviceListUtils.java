@@ -22,6 +22,7 @@ public class DeviceListUtils {
   private int maxInputBusaddress = -1;
   private int maxOutputBusaddress = -1;
   private int maxAnalogInBusaddress = -1;
+  private String lastBusUpdate = "";
 
   private static DeviceListUtils singleton = null;
 
@@ -41,6 +42,14 @@ public class DeviceListUtils {
 
   public List<BaseDevice> getDeviceList() {
     return this.deviceList;
+  }
+
+  public String getLastBusUpdate() {
+    return lastBusUpdate;
+  }
+
+  public void setLastBusUpdate(String lastBusUpdate) {
+    this.lastBusUpdate = lastBusUpdate;
   }
 
   public ArrayList<InputDevice> getInputDevicesByCategorie(String categorie) {
