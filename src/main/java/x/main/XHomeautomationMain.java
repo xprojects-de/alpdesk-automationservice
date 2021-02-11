@@ -23,6 +23,7 @@ import x.bus.BaseBus;
 import x.bus.ModbusMasterMemograph;
 import x.retain.RetainProcess;
 import x.utils.DeviceXMLParser;
+import x.utils.SystemInfo;
 
 @SpringBootApplication(scanBasePackages = {"x.rest", "x.websocket", "x.retain"})
 @EntityScan("x.retain.database")
@@ -99,6 +100,7 @@ public class XHomeautomationMain implements ApplicationRunner {
     }
     if (argsv.length >= 1) {
       logger.info("Version: " + XHomeautomationMain.VERSION);
+      SystemInfo.getInstance().setVersion(VERSION);
       Properties prop = new Properties();
       BufferedInputStream stream;
       try {
