@@ -61,7 +61,7 @@ public class RemoteAccessRequest {
   private void addSystemInfo(AutomationRequestParams atRequestParams) {
 
     HashMap<Object, Object> busInfoMap = new HashMap<>();
-    busInfoMap.put("type", Types.TYPE_BUSINFO);
+    busInfoMap.put("type", Types.TYPE_SYSTEMINFO);
     busInfoMap.put("categorie", "System");
     busInfoMap.put("name", "Systeminfo");
 
@@ -75,7 +75,7 @@ public class RemoteAccessRequest {
     list.add(0, m);
     busInfoMap.put("properties", list);
 
-    atRequestParams.getParams().put((Types.TYPE_BUSINFO * -1), busInfoMap);
+    atRequestParams.getParams().put((Types.TYPE_SYSTEMINFO * -1), busInfoMap);
   }
 
   private AutomationRequest generateCommitMessage() {
