@@ -1,0 +1,63 @@
+/**
+ * Info
+ *
+ * -> Run Application "bootRun"
+ * -> Deploy Application "bootJar" (SpringBoot overrides the normal Jar-Plug)
+ *
+ */
+
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.springframework.boot' version '2.4.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.springframework.boot:spring-boot-starter-websocket')
+
+    implementation 'net.wimpi:jamod:1.2'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.12'
+
+    runtimeOnly 'com.h2database:h2:1.4.200'
+
+    testImplementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.5.14', ext: 'pom'
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M5-groovy-2.5'
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.0-M5-groovy-2.5'
+}
+
+group = 'x'
+version = '2.2.8'
+description = 'Alpdesk-Automationservice'
+
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+springBoot {
+    mainClass = 'x.main.XHomeautomationMain'
+}
+
+/*task runOtherJar(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'my.pakage.mainclass'
+    workingDir = "${projectDir}/src/main/resources"
+    args = []
+}*/
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
