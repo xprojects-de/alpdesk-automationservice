@@ -9,7 +9,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'org.springframework.boot' version '2.4.4'
+    id 'org.springframework.boot' version '2.5.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
@@ -28,7 +28,7 @@ dependencies {
 
     implementation 'net.wimpi:jamod:1.2'
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.12'
+    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.15'
 
     runtimeOnly 'com.h2database:h2:1.4.200'
 
@@ -38,7 +38,7 @@ dependencies {
 }
 
 group = 'x'
-version = '2.2.8'
+version = '2.2.9'
 description = 'Alpdesk-Automationservice'
 
 java.sourceCompatibility = JavaVersion.VERSION_11
