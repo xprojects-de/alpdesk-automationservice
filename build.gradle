@@ -9,7 +9,7 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'org.springframework.boot' version '2.5.8'
+    id 'org.springframework.boot' version '2.6.8'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
@@ -29,7 +29,7 @@ dependencies {
 
     implementation 'net.wimpi:jamod:1.2'
     implementation 'commons-codec:commons-codec:1.15'
-    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.17'
+    implementation 'com.typesafe.akka:akka-actor_2.13:2.6.19'
 
     runtimeOnly 'com.h2database:h2:1.4.200'
 
