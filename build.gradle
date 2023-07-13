@@ -9,15 +9,12 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'org.springframework.boot' version '2.6.8'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.springframework.boot' version '2.7.13'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
     mavenCentral()
 }
 
@@ -28,7 +25,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-websocket')
 
     implementation 'net.wimpi:jamod:1.2'
-    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'commons-codec:commons-codec:1.16.0'
     implementation 'com.typesafe.akka:akka-actor_2.13:2.6.19'
 
     runtimeOnly 'com.h2database:h2:1.4.200'
@@ -61,4 +58,10 @@ test {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+bootRun {
+    systemProperty('pring.profiles.active', 'dev')
+    args('homeautomationtest.properties', '--spring.profiles.active=dev')
+    workingDir "${projectDir}/src/main/resources/data"
 }
