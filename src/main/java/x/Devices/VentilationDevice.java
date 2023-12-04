@@ -34,9 +34,9 @@ public class VentilationDevice extends BaseDevice {
   @DashboardInfo(handle = 2, displayName = "Force Activ", stateful = true)
   public boolean forceActiv = false;
 
-  @PropertyInfo(handle = 6, editable = true, displayName = "Start-Zeit", type = Types.TYPE_PROPERTIEINFO_CHANGESOLLVALUE, propertyType = Types.PROPERTYTYPE_TIME, stepValue = 30, visibleOnREST = true)
+  @PropertyInfo(handle = 6, editable = true, displayName = "Start-Zeit", type = Types.TYPE_PROPERTIEINFO_CHANGESOLLVALUE, propertyType = Types.PROPERTYTYPE_TIME, stepValue = 300, visibleOnREST = true)
   public String timeStart;
-  @PropertyInfo(handle = 7, editable = true, displayName = "Stop-Zeit", type = Types.TYPE_PROPERTIEINFO_CHANGESOLLVALUE, propertyType = Types.PROPERTYTYPE_TIME, stepValue = 30, visibleOnREST = true)
+  @PropertyInfo(handle = 7, editable = true, displayName = "Stop-Zeit", type = Types.TYPE_PROPERTIEINFO_CHANGESOLLVALUE, propertyType = Types.PROPERTYTYPE_TIME, stepValue = 300, visibleOnREST = true)
   public String timeStop;
   @PropertyInfo(handle = 8, editable = true, displayName = "AUS-Zeit Status", type = Types.TYPE_PROPERTIEINFO_TOGGLEACTIVATION, stateful = true, visibleOnREST = true)
   public boolean offTimeActive = false;
